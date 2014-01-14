@@ -44,8 +44,8 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        conEmg = new Conexion("nombre", "electromegusta.es", "3306", "agarimo", "IkuinenK@@m.s84");
-        conPresta = new Conexion("nombre", "electromegusta.es", "3306", "appLogin", "IkuinenK@@m.s84");
+        conEmg = new Conexion("nombre", "localhost", "3306", "agarimo", "IkuinenK@@m.s84");
+        conPresta = new Conexion("nombre", "localhost", "3306", "appLogin", "IkuinenK@@m.s84");
     }
 
     private static void checkOs() {
