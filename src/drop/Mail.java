@@ -49,9 +49,9 @@ public class Mail {
             String str_from = "notify@electromegusta.es";
             String str_De = "notify@electromegusta.es";
             String str_PwRemitente = "IkuinenK@@m.s84";
-            String str_Para = "agarimo@electromegusta.es";
-            String str_Asunto = "HAY UN NUEVO PEDIDO!";
-            String str_Mensaje = "Este es un mail de prueba de notificaciones de nuevos pedidos"
+            String str_Para = "b2b@electromegusta.es";
+            String str_Asunto = "NUEVO PEDIDO!";
+            String str_Mensaje = "Existe un nuevo pedido en la tienda"
                     + "\nPara entrar en el panel pulse el link a continuación \n http://electromegusta.es/admin5570/";
             //Obtenemos los destinatarios
             String destinos[] = str_Para.split(",");
