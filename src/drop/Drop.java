@@ -52,7 +52,10 @@ public class Drop {
 
         while (it.hasNext()) {
             aux = (Pedido) it.next();
-            bd.ejecutar(aux.SQLCrear());
+
+            if (bd.buscar(aux.SQLBuscarCodigo()) < 0) {
+                bd.ejecutar(aux.SQLCrear());
+            }
         }
         bd.close();
     }
