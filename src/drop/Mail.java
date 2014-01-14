@@ -14,7 +14,6 @@ import javax.mail.internet.MimeMessage;
  */
 public class Mail {
 
-    Properties props;
     private String usuario;
     private String pass;
     private String from;
