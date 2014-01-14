@@ -51,7 +51,7 @@ public class Mail {
             String str_Para = "b2b@electromegusta.es";
             String str_Asunto = "NUEVO PEDIDO!";
             String str_Mensaje = "Existe un nuevo pedido en la tienda"
-                    + "\nPara entrar en el panel pulse el link a continuación \n http://electromegusta.es/admin5570/";
+                    + "\nPara entrar en el panel pulse el link\n http://electromegusta.es/admin5570/";
             //Obtenemos los destinatarios
             String destinos[] = str_Para.split(",");
 
