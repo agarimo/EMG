@@ -88,7 +88,8 @@ public class Pedido {
     }
 
     public String SQLCrear() {
-        String query = "INSERT into electromegusta.pedido (codigo_pedido,id_cliente,id_direccion,estado) values("
+        String query = "INSERT into electromegusta.pedido (id_pedido,codigo_pedido,id_cliente,id_direccion,estado) values("
+                + this.id + ","
                 + util.Varios.entrecomillar(this.codigo) + ","
                 + this.id_cliente + ","
                 + this.id_direccion + ","
