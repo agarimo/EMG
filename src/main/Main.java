@@ -45,16 +45,9 @@ public class Main {
         conPresta = new Conexion("nombre", "localhost", "3306", "appLogin", "IkuinenK@@m.s84");
     }
 
-    private static void checkOs() {
-        String so = System.getProperty("os.name");
-        if (so.contains("Linux")) {
-            isLinux = true;
-        }
-    }
-
     private static void keyStore() throws IOException {
         checkOs();
-        
+
         if (!isLinux) {
             System.setProperty("javax.net.ssl.keyStore", "emgkeystore");
             System.setProperty("javax.net.ssl.trustStore", "emgkeystore");
@@ -67,5 +60,12 @@ public class Main {
         System.setProperty("javax.net.ssl.keyStoreType", "JKS");
         System.setProperty("javax.net.ssl.trustStorePassword", "sanchez84");
         System.setProperty("javax.net.ssl.trustStoreType", "JKS");
+    }
+
+    private static void checkOs() {
+        String so = System.getProperty("os.name");
+        if (so.contains("Linux")) {
+            isLinux = true;
+        }
     }
 }
