@@ -36,11 +36,8 @@ public class Main {
     private static void driverAndInit() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            checkOs();
             keyStore();
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al cargar el driver");
-        } catch (IOException ex) {
+        } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -56,9 +53,9 @@ public class Main {
     }
 
     private static void keyStore() throws IOException {
-        String so = System.getProperty("os.name");
-
-        if (so.contains("Windows")) {
+        checkOs();
+        
+        if (!isLinux) {
             System.setProperty("javax.net.ssl.keyStore", "emgkeystore");
             System.setProperty("javax.net.ssl.trustStore", "emgkeystore");
         } else {
