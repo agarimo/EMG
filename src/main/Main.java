@@ -21,7 +21,6 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, InterruptedException {
         driverAndInit();
-
 //        args = new String[]{"-drop"};
         if (args.length != 0) {
             inicio(args);
