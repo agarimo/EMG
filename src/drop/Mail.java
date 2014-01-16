@@ -40,8 +40,8 @@ public class Mail {
         this.subjet = subjet;
         this.msg = msg;
     }
-    
-    public Mail(String usuario,String pass,String from, String to, String subjet, String msg) {
+
+    public Mail(String usuario, String pass, String from, String to, String subjet, String msg) {
         this.usuario = usuario;
         this.pass = pass;
         this.from = from;
