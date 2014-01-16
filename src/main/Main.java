@@ -21,7 +21,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, InterruptedException {
         driverAndInit();
-//        args = new String[]{"-drop"};
+//        args = new String[]{"-activa"};
         if (args.length != 0) {
             inicio(args);
         }
@@ -40,7 +40,7 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        conEmg = new Conexion("nombre", "localhost", "3306", "agarimo", "IkuinenK@@m.s84");
+        conEmg = new Conexion("nombre", "electromegusta.es", "3306", "agarimo", "IkuinenK@@m.s84");
         conPresta = new Conexion("nombre", "localhost", "3306", "appLogin", "IkuinenK@@m.s84");
     }
 

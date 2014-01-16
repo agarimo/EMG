@@ -57,6 +57,7 @@ public class Inicio {
         List list = Arrays.asList(aux);
 
         if (list.contains("-activatarifa")) {
+            activa = true;
             activaTarifa = true;
         }
 
@@ -116,8 +117,8 @@ public class Inicio {
     }
 
     public void run() throws IOException {
-        if (activaTarifa) {
-            if (activa) {
+        if (activa) {
+            if (!activaTarifa) {
                 log.escribeMsg("Ejecutando activa");
             } else {
                 log.escribeMsg("Ejecutando activaTarifa");
@@ -286,7 +287,7 @@ public class Inicio {
                 aux.run();
                 break;
             case "ACTIVA TARIFA":
-                if (activa) {
+                if (!activaTarifa) {
                     aux = new CsvActiva(file, Main.conEmg);
                 } else {
                     aux = new CsvActivaTarifa(file, Main.conEmg);
