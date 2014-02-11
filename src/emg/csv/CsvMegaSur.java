@@ -123,8 +123,8 @@ public class CsvMegaSur extends Csv {
 
         if (id < 0) {
             logProducto.escribeMsg("Nuevo producto: " + linea);
-            producto.setPrecioCoste(setPrecio());
-            producto.setStock(setStock());
+//            producto.setPrecioCoste(setPrecio());
+//            producto.setStock(setStock());
             bd.ejecutar(producto.SQLCrear());
         } else {
             actualizaTarifa(id);

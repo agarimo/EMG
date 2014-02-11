@@ -21,7 +21,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, InterruptedException {
         driverAndInit();
-//        args = new String[]{"-activa"};
+        args = new String[]{"-bluevision"};
         if (args.length != 0) {
             inicio(args);
         }
@@ -41,7 +41,7 @@ public class Main {
         }
 
         conEmg = new Conexion("nombre", "electromegusta.es", "3306", "agarimo", "IkuinenK@@m.s84");
-        conPresta = new Conexion("nombre", "localhost", "3306", "appLogin", "IkuinenK@@m.s84");
+        conPresta = new Conexion("nombre", "electromegusta.es", "3306", "appLogin", "IkuinenK@@m.s84");
     }
 
     private static void keyStore() throws IOException {

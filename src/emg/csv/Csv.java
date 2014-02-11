@@ -120,8 +120,7 @@ public class Csv implements Runnable {
         }
     }
 
-    protected int setStock() throws SQLException {
-        int id;
+    protected int setStock(int id) throws SQLException {
         String query = "INSERT into electromegusta.stock (stock,last_update) values("
                 + this.stock + ","
                 + "curdate()"
@@ -131,8 +130,7 @@ public class Csv implements Runnable {
         return id;
     }
 
-    protected int setPrecio() throws SQLException {
-        int id;
+    protected int setPrecio(int id) throws SQLException {
         String query = "INSERT into electromegusta.precio_coste (precio,last_update) values("
                 + this.precio + ","
                 + "curdate()"
