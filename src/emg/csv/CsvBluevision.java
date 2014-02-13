@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import main.Inicio;
 import main.Log;
-import main.entidades.ProductoFinal;
 import util.Conexion;
-import util.Dates;
 import util.Varios;
 
 /**
@@ -64,11 +62,11 @@ public class CsvBluevision extends Csv {
         producto.setReferenciaFabricante(split[0].trim());
         producto.setNombre(split[1].trim());
         aux=split[2].trim();
-        this.stock=Integer.parseInt(aux);
+        ip.setStock(Integer.parseInt(aux));
         aux=split[3].trim();
         aux=aux.replace(".", "");
         aux=aux.replace(",", ".");
-        this.precio=Double.parseDouble(aux);
+        ip.setPrecio(Double.parseDouble(aux));
                 
         creaProducto(producto,str);
     }
@@ -78,28 +76,10 @@ public class CsvBluevision extends Csv {
 
         if (id < 0) {
             logProducto.escribeMsg("Nuevo producto: " + linea);
-            producto.setPrecioCoste(setPrecio(id));
-            producto.setStock(setStock(id));
             bd.ejecutar(producto.SQLCrear());
+            setInfo(bd.ultimoRegistro());
         } else {
-            actualizaTarifa(id);
-            actualizaStock(id);
+            actualizaInfo(id);
         }
-    }
-    
-    private void actualizaTarifa(int id) throws SQLException {
-        String query = "UPDATE electromegusta.precio_coste SET "
-                + "precio=" + this.precio + ","
-                + "last_update=" + Varios.entrecomillar(Dates.imprimeFechaCompleta(Dates.curdate()))+" "
-                + "WHERE id_precio=" + id;
-        bd.ejecutar(query);
-    }
-    
-    private void actualizaStock(int id) throws SQLException{
-        String query = "UPDATE electromegusta.stock SET "
-                + "stock=" + this.stock + ","
-                + "last_update=" + Varios.entrecomillar(Dates.imprimeFechaCompleta(Dates.curdate()))+" "
-                + "WHERE id_stock=" + id;
-        bd.ejecutar(query);
     }
 }

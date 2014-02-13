@@ -11,7 +11,6 @@ import java.util.Iterator;
 import main.Inicio;
 import main.Log;
 import util.Conexion;
-import util.Dates;
 import util.Varios;
 
 /**
@@ -35,7 +34,7 @@ public class CsvActiva extends Csv {
     }
 
     private void procesar() {
-        System.out.println("Iniciando actualizacion de tarifa");
+        System.out.println("Iniciando actualizacion ACTIVA 2000");
         int contador = 1;
         String str;
         Iterator it = super.list.iterator();
@@ -66,9 +65,9 @@ public class CsvActiva extends Csv {
             producto.setReferenciaProveedor(split[3].trim());
             producto.setReferenciaFabricante(split[4].trim());
             producto.setNombre(split[7].trim().replace("'", "´"));
-            this.precio = Double.parseDouble(split[8].trim());
-            this.stock = Integer.parseInt(split[9].trim());
-
+            this.ip.setPrecio(Double.parseDouble(split[8].trim()));
+            this.ip.setStock(Integer.parseInt(split[9].trim()));
+            
             creaProducto(producto, str);
         }
     }
@@ -124,19 +123,10 @@ public class CsvActiva extends Csv {
 
         if (id < 0) {
             logProducto.escribeMsg("Nuevo producto: " + linea);
-            producto.setPrecioCoste(setPrecio(id));
-            producto.setStock(setStock(id));
             bd.ejecutar(producto.SQLCrear());
+            setInfo(bd.ultimoRegistro());
         } else {
-            actualizaTarifa(id);
+            actualizaInfo(id);
         }
-    }
-
-    private void actualizaTarifa(int id) throws SQLException {
-        String query = "UPDATE electromegusta.precio_coste SET "
-                + "precio=" + this.precio + ","
-                + "last_update=" + Varios.entrecomillar(Dates.imprimeFechaCompleta(Dates.curdate())) + " "
-                + "WHERE id_precio=" + id;
-        bd.ejecutar(query);
     }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import main.Inicio;
 import main.Log;
 import main.Main;
+import main.entidades.InfoProducto;
 import util.Conexion;
 import util.Sql;
 
@@ -29,8 +30,7 @@ public class Csv implements Runnable {
     boolean activo;
     List<String> list;
     List listPublicado;
-    int stock;
-    double precio;
+    InfoProducto ip;
     Log logProducto;
     Log logCategoria;
 
@@ -41,6 +41,7 @@ public class Csv implements Runnable {
         this.archivo = archivo;
         this.con = con;
         this.activo = false;
+        this.ip=new InfoProducto();
         list = new ArrayList();
     }
 
@@ -120,36 +121,24 @@ public class Csv implements Runnable {
         }
     }
 
-    protected int setStock(int id) throws SQLException {
-        String query = "INSERT into electromegusta.stock (stock,last_update) values("
-                + this.stock + ","
-                + "curdate()"
-                + ")";
-        bd.ejecutar(query);
-        id = bd.ultimoRegistro();
-        return id;
+    protected void setInfo(int id) throws SQLException{
+        bd.ejecutar(ip.SQLCrear());
     }
-
-    protected int setPrecio(int id) throws SQLException {
-        String query = "INSERT into electromegusta.precio_coste (precio,last_update) values("
-                + this.precio + ","
-                + "curdate()"
-                + ")";
-        bd.ejecutar(query);
-        id = bd.ultimoRegistro();
-        return id;
+    
+    protected void actualizaInfo(int id) throws SQLException{
+        bd.ejecutar(ip.SQLEditar());
     }
-
+    
     protected void actualizaTarifaPresta(ProductoFinal pf) throws SQLException {
         if (!Inicio.offline) {
-            PrestaShop ps = new PrestaShop(pf, this.stock, this.precio);
+            PrestaShop ps = new PrestaShop(pf, ip);
             bdPresta.ejecutar(ps.updatePrice());
         }
     }
 
     protected void actualizaStockPresta(ProductoFinal pf) throws SQLException {
         if (!Inicio.offline) {
-            PrestaShop ps = new PrestaShop(pf, this.stock, this.precio);
+            PrestaShop ps = new PrestaShop(pf, ip);
             bdPresta.ejecutar(ps.updateStock());
         }
     }

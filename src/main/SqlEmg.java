@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.Main;
+import main.entidades.InfoProducto;
 
 /**
  *
@@ -50,8 +50,7 @@ public class SqlEmg {
             if (rs.next()) {
                 aux = new Producto(rs.getInt("id_producto"), rs.getInt("id_proveedor"), rs.getInt("id_categoria"),
                         rs.getInt("id_subcategoria"), rs.getInt("id_subcategoria2"), rs.getString("referencia_proveedor"),
-                        rs.getString("referencia_fabricante"), rs.getInt("stock"), rs.getInt("precio_coste"),
-                        rs.getString("nombre_producto"));
+                        rs.getString("referencia_fabricante"), rs.getString("nombre_producto"));
             }
             rs.close();
             bd.close();
@@ -89,8 +88,8 @@ public class SqlEmg {
 
             if (rs.next()) {
                 aux = new ProductoFinal(rs.getInt("id_producto"), rs.getInt("id_proveedor"), rs.getInt("id_categoria"), rs.getString("nombre_producto"),
-                        rs.getString("ref_fabricante"), rs.getString("ref_proveedor"), rs.getInt("stock"), rs.getInt("precio_coste"),
-                        rs.getInt("porcentaje_venta"), rs.getDouble("porte"), rs.getBoolean("activo"));
+                        rs.getString("ref_fabricante"), rs.getString("ref_proveedor"), rs.getInt("porcentaje_venta"), rs.getDouble("porte"),
+                        rs.getBoolean("activo"));
             }
             rs.close();
             bd.close();
@@ -160,6 +159,25 @@ public class SqlEmg {
 
         return aux;
     }
+    
+    public static InfoProducto cargaInfoProducto(InfoProducto ip){
+        InfoProducto aux = null;
+        try {
+            bd = new Sql(Main.conEmg);
+            rs = bd.ejecutarQueryRs(ip.SQLBuscar());
+
+            if (rs.next()) {
+                aux = new InfoProducto(rs.getInt("id_info"),rs.getInt("stock"),rs.getDouble("precio"));
+            }
+
+            rs.close();
+            bd.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SqlEmg.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return aux;
+    }
 
     public static void actualizaActivos() {
         String queryFalse = "UPDATE admin_electropresta.EM_product_shop SET active=0 where id_product IN(SELECT id_product FROM admin_electropresta.EM_stock_available where quantity=0)";
@@ -210,8 +228,7 @@ public class SqlEmg {
             while (rs.next()) {
                 aux = new Producto(rs.getInt("id_producto"), rs.getInt("id_proveedor"), rs.getInt("id_categoria"),
                         rs.getInt("id_subcategoria"), rs.getInt("id_subcategoria2"), rs.getString("referencia_proveedor"),
-                        rs.getString("referencia_fabricante"), rs.getInt("stock"), rs.getInt("precio_coste"),
-                        rs.getString("nombre_producto"));
+                        rs.getString("referencia_fabricante"), rs.getString("nombre_producto"));
                 list.add(aux);
             }
 
@@ -235,8 +252,8 @@ public class SqlEmg {
 
             while (rs.next()) {
                 aux = new ProductoFinal(rs.getInt("id_producto"), rs.getInt("id_proveedor"), rs.getInt("id_categoria"), rs.getString("nombre_producto"),
-                        rs.getString("ref_fabricante"), rs.getString("ref_proveedor"), rs.getInt("stock"), rs.getInt("precio_coste"),
-                        rs.getInt("porcentaje_venta"), rs.getDouble("porte"), rs.getBoolean("activo"));
+                        rs.getString("ref_fabricante"), rs.getString("ref_proveedor"), rs.getInt("porcentaje_venta"), rs.getDouble("porte"),
+                        rs.getBoolean("activo"));
                 list.add(aux);
             }
 

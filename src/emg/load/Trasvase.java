@@ -70,8 +70,6 @@ public class Trasvase {
         pf.setNombre(producto.getNombre());
         pf.setReferenciaFabricante(producto.getReferenciaFabricante());
         pf.setReferenciaProveedor(producto.getReferenciaProveedor());
-        pf.setStock(producto.getStock());
-        pf.setPrecioCoste(producto.getPrecioCoste());
         pf.setPorcentaje(13);
         pf.setPorte(7);
         pf.setActivo(false);

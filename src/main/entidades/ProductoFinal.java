@@ -15,8 +15,6 @@ public class ProductoFinal {
     private String nombre;
     private String referenciaFabricante;
     private String referenciaProveedor;
-    private int stock;
-    private int precioCoste;
     private int porcentaje;
     private double porte;
     private boolean isActivo;
@@ -30,29 +28,25 @@ public class ProductoFinal {
     }
 
     public ProductoFinal(int idProveedor, int idCategoria, String nombre, String referenciaFabricante, String referenciaProveedor,
-            int stock, int precioCoste, int porcentaje,double porte,boolean isActivo) {
+            int porcentaje,double porte,boolean isActivo) {
         this.idProveedor = idProveedor;
         this.idCategoria = idCategoria;
         this.nombre = nombre;
         this.referenciaFabricante = referenciaFabricante;
         this.referenciaProveedor = referenciaProveedor;
-        this.stock = stock;
-        this.precioCoste = precioCoste;
         this.porcentaje = porcentaje;
         this.porte=porte;
         this.isActivo=isActivo;
     }
 
     public ProductoFinal(int id, int idProveedor, int idCategoria, String nombre, String referenciaFabricante, String referenciaProveedor,
-            int stock, int precioCoste, int porcentaje,double porte,boolean isActivo) {
+           int porcentaje,double porte,boolean isActivo) {
         this.id = id;
         this.idProveedor = idProveedor;
         this.idCategoria = idCategoria;
         this.nombre = nombre;
         this.referenciaFabricante = referenciaFabricante;
         this.referenciaProveedor = referenciaProveedor;
-        this.stock = stock;
-        this.precioCoste = precioCoste;
         this.porcentaje = porcentaje;
         this.porte=porte;
         this.isActivo=isActivo;
@@ -114,22 +108,6 @@ public class ProductoFinal {
         this.referenciaProveedor = referenciaProveedor;
     }
 
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public int getPrecioCoste() {
-        return precioCoste;
-    }
-
-    public void setPrecioCoste(int precioCoste) {
-        this.precioCoste = precioCoste;
-    }
-
     public int getPorcentaje() {
         return porcentaje;
     }
@@ -174,20 +152,18 @@ public class ProductoFinal {
 
     @Override
     public String toString() {
-        return "Producto_final{" + "id=" + id + ", idProveedor=" + idProveedor + ", idCategoria=" + idCategoria + ", nombre=" + nombre + ", referenciaFabricante=" + referenciaFabricante + ", referenciaProveedor=" + referenciaProveedor + ", stock=" + stock + ", precioCoste=" + precioCoste + ", porcentaje=" + porcentaje + '}';
+        return "Producto_final{" + "id=" + id + ", idProveedor=" + idProveedor + ", idCategoria=" + idCategoria + ", nombre=" + nombre + ", referenciaFabricante=" + referenciaFabricante + ", referenciaProveedor=" + referenciaProveedor +  ", porcentaje=" + porcentaje + '}';
     }
 
     public String SQLCrear() {
         String query = "INSERT into electromegusta.producto_final (id_producto,id_proveedor,id_categoria,"
-                + "nombre_producto,ref_fabricante,ref_proveedor,stock,precio_coste,porcentaje_venta,porte,activo) values("
+                + "nombre_producto,ref_fabricante,ref_proveedor,porcentaje_venta,porte,activo) values("
                 + this.id + ","
                 + this.idProveedor + ","
                 + this.idCategoria + ","
                 + util.Varios.entrecomillar(this.nombre) + ","
                 + util.Varios.entrecomillar(this.referenciaFabricante) + ","
                 + util.Varios.entrecomillar(this.referenciaProveedor) + ","
-                + this.stock + ","
-                + this.precioCoste + ","
                 + this.porcentaje + ","
                 + this.porte + ","
                 + this.isActivo

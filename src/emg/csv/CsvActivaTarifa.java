@@ -64,8 +64,7 @@ public class CsvActivaTarifa extends Csv {
             pf.setReferenciaProveedor(split[3].trim());
             pf.setReferenciaFabricante(split[4].trim());
             pf.setNombre(split[7].trim().replace("'", "´"));
-            this.precio = Double.parseDouble(split[8].trim());
-            this.stock = Integer.parseInt(split[9].trim());
+            ip.setPrecio(Double.parseDouble(split[8].trim()));
 
             compruebaProducto(pf);
         }
@@ -80,10 +79,10 @@ public class CsvActivaTarifa extends Csv {
     }
 
     private void actualizaTarifa(int id) throws SQLException {
-        String query = "UPDATE electromegusta.precio_coste SET "
-                + "precio=" + this.precio + ","
-                + "last_update=" + Varios.entrecomillar(Dates.imprimeFechaCompleta(Dates.curdate())) + " "
-                + "WHERE id_precio="+id;
+        String query = "UPDATE electromegusta.info_producto SET "
+                + "precio=" + this.ip.getPrecio() + ","
+                + "update_precio=" + Varios.entrecomillar(Dates.imprimeFechaCompleta(Dates.curdate())) + " "
+                + "WHERE id_info="+id;
         bd.ejecutar(query);
     }
 }

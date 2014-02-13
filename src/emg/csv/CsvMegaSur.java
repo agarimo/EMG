@@ -66,8 +66,8 @@ public class CsvMegaSur extends Csv {
         producto.setReferenciaProveedor(split[5].trim());
         producto.setReferenciaFabricante(split[14].trim());
         producto.setNombre(split[6].trim().replace("'", "´"));
-        this.precio = Double.parseDouble(split[7].trim().replace(",", "."));
-        this.stock = Integer.parseInt(split[12].trim());
+//        this.precio = Double.parseDouble(split[7].trim().replace(",", "."));
+//        this.stock = Integer.parseInt(split[12].trim());
 
         creaProducto(producto, str);
     }
@@ -133,7 +133,7 @@ public class CsvMegaSur extends Csv {
 
     private void actualizaTarifa(int id) throws SQLException {
         String query = "UPDATE electromegusta.precio_coste SET "
-                + "precio=" + this.precio + ","
+//                + "precio=" + this.precio + ","
                 + "last_update=" + Varios.entrecomillar(Dates.imprimeFechaCompleta(Dates.curdate())) + " "
                 + "WHERE id_precio=" + id;
         bd.ejecutar(query);

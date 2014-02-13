@@ -266,7 +266,7 @@ public class Inicio {
         } catch (SQLException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
-        SqlEmg.actualizaActivos();
+//        SqlEmg.actualizaActivos();
     }
 
     private void getContenido(FTPProveedor server, FTPProveedor publicacion, int tipo) {
@@ -297,6 +297,7 @@ public class Inicio {
             case "BLUEVISION":
                 aux = new CsvBluevision(file, Main.conEmg);
                 aux.run();
+                update();
                 break;
         }
     }

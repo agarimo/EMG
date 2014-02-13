@@ -1,10 +1,5 @@
 package main.entidades;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import main.Main;
-import util.Sql;
 import main.SqlEmg;
 
 /**
@@ -14,13 +9,12 @@ import main.SqlEmg;
 public final class PrestaShop {
 
     private ProductoFinal pf;
-    private int stock;
-    private double precio;
+    private InfoProducto ip;
     private String descripcion;
 
     public PrestaShop(ProductoFinal pf) {
         this.pf = SqlEmg.cargaProductoFinal(pf, 0);
-        cargaValores();
+        getInfo();
     }
 
     public PrestaShop(ProductoFinal pf, String descripcion) {
@@ -28,10 +22,9 @@ public final class PrestaShop {
         this.descripcion = descripcion;
     }
 
-    public PrestaShop(ProductoFinal pf, int stock, double precio) {
+    public PrestaShop(ProductoFinal pf, InfoProducto ip) {
         this.pf = pf;
-        this.stock = stock;
-        this.precio = precio;
+        this.ip = ip;
     }
 
     public ProductoFinal getId() {
@@ -40,22 +33,6 @@ public final class PrestaShop {
 
     public void setId(ProductoFinal pf) {
         this.pf = pf;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
     }
 
     public String getDescripcion() {
@@ -67,7 +44,7 @@ public final class PrestaShop {
     }
 
     public double calculaPrecioFinal() {
-        double aux = this.precio;
+        double aux = ip.getPrecio();
         aux = ((aux * pf.getPorcentaje()) / 100) + aux;
         aux = aux + pf.getPorte();
 
@@ -83,28 +60,22 @@ public final class PrestaShop {
 
     public String updateStock() {
         String query = "UPDATE admin_electropresta.EM_stock_available SET "
-                + "quantity=" + this.stock + " "
+                + "quantity=" + ip.getStock() + " "
                 + "WHERE id_product=" + this.pf.getId();
         return query;
     }
-    
-    public String updateActivo(){
+
+    public String updateActivo() {
         String query = "UPDATE admin_electropresta.EM_product_shop SET "
-                + "active="+this.pf.isActivo() + " "
-                + "where id_product="+this.pf.getId();
+                + "active=" + this.pf.isActivo() + " "
+                + "where id_product=" + this.pf.getId();
         return query;
     }
 
-    public void cargaValores() {
-        try {
-            Sql bd = new Sql(Main.conEmg);
-            this.precio = bd.getDouble("SELECT precio FROM electromegusta.precio_coste WHERE id_precio=" + this.pf.getPrecioCoste());
-            this.stock = bd.buscar("SELECT stock FROM electromegusta.stock WHERE id_stock=" + this.pf.getStock());
-            bd.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(PrestaShop.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void getInfo() {
+        ip=SqlEmg.cargaInfoProducto(new InfoProducto(pf.getId()));
     }
+    
     //Métdodo para cuándo haya que actualizar objetos individuales en la bbdd
 //    public String updateDescripcion(){
 //        String query="UPDATE admin_electropresta.EM_product_lang SET "

@@ -60,7 +60,7 @@ public class CsvActivaStock extends Csv {
         ProductoFinal pf = new ProductoFinal();
         pf.setIdProveedor(3);
         pf.setReferenciaProveedor(split[0].trim());
-        stock = Integer.parseInt(split[1].trim());
+        ip.setStock(Integer.parseInt(split[1].trim()));
 
         compruebaProducto(pf);
     }
@@ -74,10 +74,10 @@ public class CsvActivaStock extends Csv {
     }
 
     private void actualizaStock(int id) throws SQLException {
-        String query = "UPDATE electromegusta.stock SET "
-                + "stock=" + this.stock + ","
-                + "last_update=" + Varios.entrecomillar(Dates.imprimeFechaCompleta(Dates.curdate())) + " "
-                + "WHERE id_stock=" + id;
+        String query = "UPDATE electromegusta.info_producto SET "
+                + "stock=" + this.ip.getStock() + ","
+                + "update_stock=" + Varios.entrecomillar(Dates.imprimeFechaCompleta(Dates.curdate())) + " "
+                + "WHERE id_info=" + id;
         bd.ejecutar(query);
     }
 }

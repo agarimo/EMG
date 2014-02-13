@@ -16,8 +16,6 @@ public class Producto {
     int idSubCategoria2;
     String referenciaProveedor;
     String referenciaFabricante;
-    int stock;
-    int precioCoste;
     String nombre;
 
     public Producto() {
@@ -28,7 +26,7 @@ public class Producto {
     }
 
     public Producto(int id, int idProveedor, int idCategoria, int idSubCategoria, int idSubCategoria2, String referenciaProveedor,
-            String referenciaFabricante, int stock, int precioCoste,String nombre) {
+            String referenciaFabricante,String nombre) {
         this.id = id;
         this.idProveedor = idProveedor;
         this.idCategoria = idCategoria;
@@ -36,8 +34,6 @@ public class Producto {
         this.idSubCategoria2 = idSubCategoria2;
         this.referenciaProveedor = referenciaProveedor;
         this.referenciaFabricante = referenciaFabricante;
-        this.stock = stock;
-        this.precioCoste = precioCoste;
         this.nombre = nombre;
     }
 
@@ -105,22 +101,6 @@ public class Producto {
         this.referenciaFabricante = referenciaFabricante;
     }
 
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public int getPrecioCoste() {
-        return precioCoste;
-    }
-
-    public void setPrecioCoste(int precioCoste) {
-        this.precioCoste = precioCoste;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -154,15 +134,13 @@ public class Producto {
 
     public String SQLCrear() {
         String query = "INSERT into electromegusta.producto (id_proveedor,id_categoria,id_subcategoria,id_subcategoria2,"
-                + "referencia_proveedor,referencia_fabricante,stock,precio_coste,nombre_producto,fecha_entrada) values("
+                + "referencia_proveedor,referencia_fabricante,nombre_producto,fecha_entrada) values("
                 + this.idProveedor + ","
                 + this.idCategoria + ","
                 + this.idSubCategoria + ","
                 + this.idSubCategoria2 + ","
                 + util.Varios.entrecomillar(this.referenciaProveedor) + ","
                 + util.Varios.entrecomillar(this.referenciaFabricante) + ","
-                + this.stock + ","
-                + this.precioCoste + ","
                 + util.Varios.entrecomillar(this.nombre) + ","
                 + "Curdate()"
                 + ")";

@@ -15,6 +15,7 @@ import main.Inicio;
 import main.Main;
 import util.Sql;
 import main.SqlEmg;
+import main.entidades.InfoProducto;
 import util.Split;
 import util.Varios;
 
@@ -27,6 +28,7 @@ public class CsvInsercion {
     private String[] cabecera;
     private List<ProductoFinal> list;
     private ProductoFinal producto;
+    private InfoProducto ip;
     private File directorio = new File("insercion");
     private File csv;
 
@@ -77,6 +79,7 @@ public class CsvInsercion {
     }
 
     private void procesar(ProductoFinal pf) {
+        getInfo(pf.getId());
         String linea;
         String[] aux = new String[10];
         aux[0] = Integer.toString(pf.getId());
@@ -85,8 +88,8 @@ public class CsvInsercion {
         aux[3] = pf.getNombre();
         aux[4] = pf.getReferenciaFabricante();
         aux[5] = pf.getReferenciaProveedor();
-        aux[6] = Integer.toString(getStock(pf));
-        aux[7] = new DecimalFormat("0.00").format(getPrecioVenta(pf));
+        aux[6] = Integer.toString(ip.getStock());
+        aux[7] = new DecimalFormat("0.00").format(ip.getPrecio());
         aux[8] = getImagen(pf);
 //        aux[9] = getDescripcion(pf).trim().replace("\r", "").replace(";", "");
         aux[9] = "DESCRIPCION".trim().replace("\r", "").replace(";", "");
@@ -105,36 +108,11 @@ public class CsvInsercion {
             Inicio.log.escribeError("SQLException", ex.getMessage());
         }
     }
-
-    private int getStock(ProductoFinal pf) {
-        int stock;
-        try {
-            Sql bd = new Sql(Main.conEmg);
-            stock = bd.buscar("SELECT stock FROM electromegusta.stock WHERE id_stock=" + pf.getStock());
-            bd.close();
-        } catch (SQLException ex) {
-            stock = -1;
-            Inicio.log.escribeError("SQLException", ex.getMessage());
-        }
-        return stock;
+    
+    private void getInfo(int id){
+        ip = SqlEmg.cargaInfoProducto(new InfoProducto(id));
     }
-
-    private double getPrecioVenta(ProductoFinal pf) {
-        double precio;
-        Sql bd;
-        try {
-            bd = new Sql(Main.conEmg);
-            precio = bd.getDouble("Select precio from electromegusta.precio_coste WHERE id_precio=" + pf.getPrecioCoste());
-            precio = Varios.calculaPorcentaje(precio, pf.getPorcentaje());
-            precio = precio+pf.getPorte();
-            bd.close();
-        } catch (SQLException ex) {
-            precio = -1;
-            Inicio.log.escribeError("SQLException", ex.getMessage());
-        }
-        return precio;
-    }
-
+   
     private String getDescripcion(ProductoFinal pf) {
         Descripcion de = SqlEmg.cargarDescripcion(new Descripcion(pf.getId()));
         if (de == null) {
