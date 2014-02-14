@@ -5,7 +5,6 @@ import main.entidades.Descripcion;
 import main.entidades.Imagen;
 import main.entidades.Producto;
 import main.entidades.ProductoFinal;
-import emg.load.RelacionCategoria;
 import main.ftp.FTPProveedor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -110,26 +109,6 @@ public class SqlEmg {
             if (rs.next()) {
                 aux = new FTPProveedor(rs.getInt("id_ftp_proveedor"), rs.getString("nombre_ftp"), rs.getString("login_ftp"), rs.getString("pass_ftp"),
                         rs.getString("host_ftp"), rs.getString("archivo_ftp"));
-            }
-
-            rs.close();
-            bd.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(SqlEmg.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return aux;
-    }
-
-    public static RelacionCategoria cargarRelacionCategorias(RelacionCategoria relacion) {
-        RelacionCategoria aux = null;
-        try {
-            bd = new Sql(Main.conEmg);
-            rs = bd.ejecutarQueryRs(relacion.SQLBuscar());
-
-            if (rs.next()) {
-                aux = new RelacionCategoria(rs.getInt("id_categoria"), rs.getString("nombre_subcategoria2"),
-                        rs.getInt("id_categoria_final"), rs.getString("nombre_categoria_final"));
             }
 
             rs.close();
@@ -264,29 +243,6 @@ public class SqlEmg {
             Logger.getLogger(SqlEmg.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return list;
-    }
-
-    public static List<RelacionCategoria> listarRelacionCategorias(String query) {
-        List<RelacionCategoria> list = new ArrayList();
-        RelacionCategoria aux;
-
-        try {
-            bd = new Sql(Main.conEmg);
-            rs = bd.ejecutarQueryRs(query);
-
-            while (rs.next()) {
-                aux = new RelacionCategoria(rs.getInt("id_categoria"), rs.getString("nombre_subcategoria2"),
-                        rs.getInt("id_categoria_final"), rs.getString("nombre_categoria_final"));
-                list.add(aux);
-            }
-
-            rs.close();
-            bd.close();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(SqlEmg.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return list;
     }
 

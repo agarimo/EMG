@@ -21,7 +21,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, InterruptedException {
         driverAndInit();
-//        args = new String[]{"-bluevision"};
+        args = new String[]{"-trasvase"};
         if (args.length != 0) {
             inicio(args);
         }

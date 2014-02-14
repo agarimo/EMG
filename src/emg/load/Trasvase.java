@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.Inicio;
 import main.Main;
 import util.Sql;
@@ -19,42 +21,35 @@ import util.Varios;
 public class Trasvase {
 
     private Sql bd;
-    private List<RelacionCategoria> relaciones;
     private List<Producto> productos;
-    private RelacionCategoria aux;
 
     public Trasvase() {
         productos = new ArrayList();
-        cargaRelaciones();
     }
 
     public void run() {
         System.out.println("Iniciando trasvase de Productos");
-        Iterator it = relaciones.iterator();
 
         try {
             bd = new Sql(Main.conEmg);
-            while (it.hasNext()) {
-                aux = (RelacionCategoria) it.next();
-                System.out.println("Iniciando Trasvase :"+aux.getNombreCategoria()+" - "+aux.getNombreCategoriaFinal());
-                productos = cargaProductos(aux);
-                procesaProductos();
-            }
+            productos = cargaProductos();
+            procesaProductos();
             System.out.println("Trasvase de Productos finalizado");
             bd.close();
         } catch (SQLException ex) {
             Inicio.log.escribeError("SQLException", ex.getMessage());
+            Logger.getLogger(Trasvase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void procesaProductos() throws SQLException {
         Iterator it = productos.iterator();
         Producto producto;
-        int contador=1;
+        int contador = 1;
 
         while (it.hasNext()) {
             producto = (Producto) it.next();
-            System.out.print("\rTrasvasando "+Varios.calculaProgreso(contador, productos.size()) + "%");
+            System.out.print("\rTrasvasando " + Varios.calculaProgreso(contador, productos.size()) + "%");
             contador++;
             creaProductoFinal(producto);
         }
@@ -66,7 +61,7 @@ public class Trasvase {
         ProductoFinal pf = new ProductoFinal();
         pf.setId(producto.getId());
         pf.setIdProveedor(producto.getIdProveedor());
-        pf.setIdCategoria(aux.getCategoriaFinal());
+        pf.setIdCategoria(2);
         pf.setNombre(producto.getNombre());
         pf.setReferenciaFabricante(producto.getReferenciaFabricante());
         pf.setReferenciaProveedor(producto.getReferenciaProveedor());
@@ -80,12 +75,8 @@ public class Trasvase {
         }
     }
 
-    private void cargaRelaciones() {
-        this.relaciones = SqlEmg.listarRelacionCategorias("SELECT * FROM electromegusta.relaciones");
-    }
-
-    private List<Producto> cargaProductos(RelacionCategoria relacion) {
-        List<Producto> list = SqlEmg.listaProducto("SELECT * FROM electromegusta.producto WHERE id_subcategoria2=" + relacion.getCategoria());
+    private List<Producto> cargaProductos() {
+        List<Producto> list = SqlEmg.listaProducto("SELECT * FROM electromegusta.producto WHERE id_producto NOT IN (select id_producto from electromegusta.producto_final) AND publicado=1");
         return list;
     }
 }
