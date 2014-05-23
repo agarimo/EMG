@@ -10,11 +10,13 @@ public final class PrestaShop {
 
     private ProductoFinal pf;
     private InfoProducto ip;
+    private String nombre;
     private String descripcion;
 
     public PrestaShop(ProductoFinal pf) {
         this.pf = SqlEmg.cargaProductoFinal(pf, 0);
         getInfo();
+        getNombrePresta();
     }
 
     public PrestaShop(ProductoFinal pf, String descripcion) {
@@ -41,6 +43,35 @@ public final class PrestaShop {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public ProductoFinal getPf() {
+        return pf;
+    }
+
+    public void setPf(ProductoFinal pf) {
+        this.pf = pf;
+    }
+
+    public InfoProducto getIp() {
+        return ip;
+    }
+
+    public void setIp(InfoProducto ip) {
+        this.ip = ip;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return pf.getReferenciaFabricante();
     }
 
     public double calculaPrecioFinal() {
@@ -74,6 +105,10 @@ public final class PrestaShop {
 
     public void getInfo() {
         ip=SqlEmg.cargaInfoProducto(new InfoProducto(pf.getId()));
+    }
+    
+    public void getNombrePresta(){
+        this.nombre=SqlEmg.cargaNombrePresta(pf.getId());
     }
     
     //Métdodo para cuándo haya que actualizar objetos individuales en la bbdd

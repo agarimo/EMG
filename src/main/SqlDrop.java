@@ -1,6 +1,7 @@
 package main;
 
 import drop.entidades.Pedido;
+import drop.entidades.PedidoDetalle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,6 +40,29 @@ public class SqlDrop {
             Logger.getLogger(SqlEmg.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        return list;
+    }
+    
+    public static List<PedidoDetalle> listaDetallePedido(){
+        List<PedidoDetalle> list=new ArrayList();
+        PedidoDetalle aux;
+        
+        try {
+            bd = new Sql(Main.conPresta);
+            rs = bd.ejecutarQueryRs("SELECT * FROM admin_electropresta.EM_order_detail;");
+
+            while (rs.next()) {
+                aux = new PedidoDetalle(rs.getInt("id_order_detail"),rs.getInt("id_order"),rs.getInt("product_id"),rs.getInt("product_quantity"));
+                list.add(aux);
+            }
+
+            rs.close();
+            bd.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SqlEmg.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return list;
     }
 }

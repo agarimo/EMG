@@ -1,12 +1,14 @@
 package drop;
 
 import drop.entidades.Pedido;
+import drop.entidades.PedidoDetalle;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.Main;
 import main.SqlDrop;
+import main.SqlEmg;
 import util.Sql;
 
 /**
@@ -22,7 +24,9 @@ public class Drop {
         try {
             if (checkPedidos()) {
                 sincronizaPedidos();
+                sincronizaDetallePedidos();
                 notifica();
+                SqlEmg.actualizaActivos();
             }
         } catch (SQLException ex) {
             Logger.getLogger(Drop.class.getName()).log(Level.SEVERE, null, ex);
@@ -31,6 +35,7 @@ public class Drop {
 
     private boolean checkPedidos() throws SQLException {
         int a = checkEmg();
+        a=a-2;
         int b = checkPresta();
 
         if (b != a) {
@@ -55,6 +60,23 @@ public class Drop {
 
             if (bd.buscar(aux.SQLBuscarCodigo()) < 0) {
                 bd.ejecutar(aux.SQLCrear());
+            }
+        }
+        bd.close();
+    }
+    
+    private void sincronizaDetallePedidos() throws SQLException{
+        Iterator it = SqlDrop.listaDetallePedido().iterator();
+        PedidoDetalle aux;
+        Sql bd = new Sql(Main.conEmg);
+
+        while (it.hasNext()) {
+            aux = (PedidoDetalle) it.next();
+
+            if (bd.buscar(aux.SQLBuscar()) < 0) {
+                System.out.println(aux.SQLCrear());
+                bd.ejecutar(aux.SQLCrear());
+                bd.ejecutar("UPDATE electromegusta.info_producto SET stock=stock-"+aux.getCantidad()+" where id_info="+aux.getProducto());
             }
         }
         bd.close();

@@ -2,9 +2,15 @@ package main;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.entidades.InfoProducto;
+import main.entidades.Producto;
 import util.Conexion;
+import util.Sql;
 
 /**
  *
@@ -21,9 +27,13 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, InterruptedException {
         driverAndInit();
-        args = new String[]{"-trasvase"};
+//        rutinaInsercion();
+        
+//        args = new String[]{"-drop"};
         if (args.length != 0) {
             inicio(args);
+        } else {
+//            guiControl();
         }
     }
 
@@ -65,6 +75,29 @@ public class Main {
         String so = System.getProperty("os.name");
         if (so.contains("Linux")) {
             isLinux = true;
+        }
+    }
+
+    private static void rutinaInsercion() {
+        Producto pd;
+        InfoProducto ip;
+        List ls = SqlEmg.listaProducto("Select * from electromegusta.producto");
+        Iterator it = ls.iterator();
+
+        try {
+            Sql bd = new Sql(Main.conEmg);
+
+            while (it.hasNext()) {
+                pd = (Producto) it.next();
+
+                ip = new InfoProducto(pd.getId());
+
+                if (bd.buscar(ip.SQLBuscar()) < 1) {
+                    bd.ejecutar(ip.SQLCrear());
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

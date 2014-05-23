@@ -126,6 +126,7 @@ public class CsvActiva extends Csv {
             bd.ejecutar(producto.SQLCrear());
             setInfo(bd.ultimoRegistro());
         } else {
+            ip.setIdInfo(id);
             actualizaInfo(id);
         }
     }

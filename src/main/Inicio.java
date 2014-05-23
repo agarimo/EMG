@@ -266,7 +266,7 @@ public class Inicio {
         } catch (SQLException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        SqlEmg.actualizaActivos();
+        SqlEmg.actualizaActivos();
     }
 
     private void getContenido(FTPProveedor server, FTPProveedor publicacion, int tipo) {

@@ -91,8 +91,8 @@ public class CsvInsercion {
         aux[6] = Integer.toString(ip.getStock());
         aux[7] = new DecimalFormat("0.00").format(ip.getPrecio());
         aux[8] = getImagen(pf);
-//        aux[9] = getDescripcion(pf).trim().replace("\r", "").replace(";", "");
-        aux[9] = "DESCRIPCION".trim().replace("\r", "").replace(";", "");
+        aux[9] = getDescripcion(pf).trim().replace("\r", "").replace(";", "");
+//        aux[9] = "DESCRIPCION".trim().replace("\r", "").replace(";", "");
 
         linea = buildLinea(aux);
         escribeLinea(linea);

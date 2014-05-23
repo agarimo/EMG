@@ -78,7 +78,7 @@ public class InfoProducto {
     }
 
     public String SQLCrear() {
-        String query = "INSERT into electromegusta.info_prodcuto (id_info,stock,precio,update_precio,update_stock) values("
+        String query = "INSERT into electromegusta.info_producto (id_info,stock,precio,update_precio,update_stock) values("
                 + this.idInfo + ","
                 + this.stock + ","
                 + this.precio + ","

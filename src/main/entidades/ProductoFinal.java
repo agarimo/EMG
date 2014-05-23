@@ -171,6 +171,15 @@ public class ProductoFinal {
         return query;
     }
     
+    public String SQLEditar(){
+        String query = "UPDATE electromegusta.producto_final SET "
+                + "porcentaje_venta=" + this.porcentaje + ","
+                + "porte=" + this.porte + ","
+                + "activo=" + this.isActivo + " "
+                + "WHERE id_categoria=" + this.id;
+        return query;
+    }
+    
     public String SQLCreaPendiente(){
         String query="INSERT into electromegusta.pendiente_publicacion (id_producto_final) values("+this.id+")";
         return query;
