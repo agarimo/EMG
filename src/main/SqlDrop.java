@@ -29,10 +29,33 @@ public class SqlDrop {
 
             while (rs.next()) {
                 aux = new Pedido(rs.getInt("id_order"), rs.getString("reference"), rs.getInt("id_customer"),
-                        rs.getInt("id_address_delivery"), rs.getInt("current_state"));
+                        rs.getInt("id_address_delivery"), rs.getInt("current_state"),false);
                 list.add(aux);
             }
 
+            rs.close();
+            bd.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SqlEmg.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
+    public static List<Pedido> listaNotificacion() {
+        List<Pedido> list = new ArrayList();
+        Pedido aux;
+
+        try {
+            bd = new Sql(Main.conEmg);
+            rs = bd.ejecutarQueryRs("SELECT * FROM electromegusta.pedido WHERE estado=2 AND notificado=false;");
+
+            while (rs.next()) {
+                aux = new Pedido(rs.getInt("id_pedido"), rs.getString("codigo_pedido"), rs.getInt("id_cliente"),
+                        rs.getInt("id_direccion"), rs.getInt("estado"),rs.getBoolean("notificado"));
+                list.add(aux);
+            }
             rs.close();
             bd.close();
 

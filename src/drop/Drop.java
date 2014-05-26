@@ -35,7 +35,7 @@ public class Drop {
 
     private boolean checkPedidos() throws SQLException {
         int a = checkEmg();
-        a=a-2;
+        a = a - 2;
         int b = checkPresta();
 
         if (b != a) {
@@ -45,9 +45,24 @@ public class Drop {
         }
     }
 
-    private void notifica() {
-        Mail mail = new Mail();
-        mail.run();
+    private void notifica() throws SQLException {
+        boolean bool = false;
+        Iterator it = SqlDrop.listaNotificacion().iterator();
+        Pedido aux;
+        Sql bd = new Sql(Main.conEmg);
+
+        while (it.hasNext()) {
+            bool = true;
+            aux = (Pedido) it.next();
+            aux.setIsNotificado(true);
+            bd.ejecutar(aux.SQLEditarNotificado());
+        }
+        bd.close();
+
+        if (bool) {
+            Mail mail = new Mail();
+            mail.run();
+        }
     }
 
     private void sincronizaPedidos() throws SQLException {
@@ -60,12 +75,14 @@ public class Drop {
 
             if (bd.buscar(aux.SQLBuscarCodigo()) < 0) {
                 bd.ejecutar(aux.SQLCrear());
+            }else{
+                bd.ejecutar(aux.SQLEditarEstado());
             }
         }
         bd.close();
     }
-    
-    private void sincronizaDetallePedidos() throws SQLException{
+
+    private void sincronizaDetallePedidos() throws SQLException {
         Iterator it = SqlDrop.listaDetallePedido().iterator();
         PedidoDetalle aux;
         Sql bd = new Sql(Main.conEmg);
@@ -76,7 +93,7 @@ public class Drop {
             if (bd.buscar(aux.SQLBuscar()) < 0) {
                 System.out.println(aux.SQLCrear());
                 bd.ejecutar(aux.SQLCrear());
-                bd.ejecutar("UPDATE electromegusta.info_producto SET stock=stock-"+aux.getCantidad()+" where id_info="+aux.getProducto());
+                bd.ejecutar("UPDATE electromegusta.info_producto SET stock=stock-" + aux.getCantidad() + " where id_info=" + aux.getProducto());
             }
         }
         bd.close();

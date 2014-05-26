@@ -13,11 +13,12 @@ public class Pedido {
     private int id_cliente;
     private int id_direccion;
     private int estado;
+    private boolean isNotificado;
 
     public Pedido() {
     }
 
-    public Pedido(int id, String codigo, int id_cliente, int id_direccion, int estado) {
+    public Pedido(int id, String codigo, int id_cliente, int id_direccion, int estado, boolean notificacion) {
         this.id = id;
         this.codigo = codigo;
         this.id_cliente = id_cliente;
@@ -65,6 +66,14 @@ public class Pedido {
         this.estado = estado;
     }
 
+    public boolean isNotificado() {
+        return isNotificado;
+    }
+
+    public void setIsNotificado(boolean isNotificado) {
+        this.isNotificado = isNotificado;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -88,13 +97,28 @@ public class Pedido {
     }
 
     public String SQLCrear() {
-        String query = "INSERT into electromegusta.pedido (id_pedido,codigo_pedido,id_cliente,id_direccion,estado) values("
+        String query = "INSERT into electromegusta.pedido (id_pedido,codigo_pedido,id_cliente,id_direccion,estado,notificado) values("
                 + this.id + ","
                 + util.Varios.entrecomillar(this.codigo) + ","
                 + this.id_cliente + ","
                 + this.id_direccion + ","
-                + this.estado
+                + this.estado + ","
+                + this.isNotificado
                 + ")";
+        return query;
+    }
+    
+    public String SQLEditarNotificado(){
+        String query = "UPDATE electromegusta.pedido SET "
+                + "notificado=" + this.isNotificado + " "
+                + "WHERE id_pedido=" + this.id;
+        return query;
+    }
+    
+    public String SQLEditarEstado(){
+        String query = "UPDATE electromegusta.pedido SET "
+                + "estado=" + this.estado + " "
+                + "WHERE id_pedido=" + this.id;
         return query;
     }
 
