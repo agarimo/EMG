@@ -61,11 +61,11 @@ public class CsvBluevision extends Csv {
         producto.setReferenciaProveedor(split[0].trim());
         producto.setReferenciaFabricante(split[0].trim());
         producto.setNombre(split[1].trim());
-        aux=split[2].trim();
-        ip.setStock(Integer.parseInt(aux));
         aux=split[3].trim();
-        aux=aux.replace(".", "");
-        aux=aux.replace(",", ".");
+        ip.setStock(Integer.parseInt(aux));
+        aux=split[2].trim();
+//        aux=aux.replace(".", "");
+//        aux=aux.replace(",", ".");
         ip.setPrecio(Double.parseDouble(aux));
                 
         creaProducto(producto,str);

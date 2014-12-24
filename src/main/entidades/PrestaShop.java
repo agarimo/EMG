@@ -76,8 +76,8 @@ public final class PrestaShop {
 
     public double calculaPrecioFinal() {
         double aux = ip.getPrecio();
-        aux = ((aux * pf.getPorcentaje()) / 100) + aux;
-        aux = aux + pf.getPorte();
+//        aux = ((aux * pf.getPorcentaje()) / 100) + aux;
+//        aux = aux + pf.getPorte();
 
         return aux;
     }

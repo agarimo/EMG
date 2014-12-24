@@ -25,11 +25,11 @@ import util.Varios;
  */
 public class CsvInsercion {
 
-    private String[] cabecera;
+    private final String[] cabecera;
     private List<ProductoFinal> list;
     private ProductoFinal producto;
     private InfoProducto ip;
-    private File directorio = new File("insercion");
+    private final File directorio = new File("insercion");
     private File csv;
 
     public CsvInsercion() {
@@ -91,12 +91,12 @@ public class CsvInsercion {
         aux[6] = Integer.toString(ip.getStock());
         aux[7] = new DecimalFormat("0.00").format(ip.getPrecio());
         aux[8] = getImagen(pf);
-        aux[9] = getDescripcion(pf).trim().replace("\r", "").replace(";", "");
-//        aux[9] = "DESCRIPCION".trim().replace("\r", "").replace(";", "");
+//        aux[9] = getDescripcion(pf).trim().replace("\r", "").replace(";", "");
+        aux[9] = "DESCRIPCION".trim().replace("\r", "").replace(";", "");
 
         linea = buildLinea(aux);
         escribeLinea(linea);
-        borraPendiente(pf.getId());
+//        borraPendiente(pf.getId());
     }
 
     private void borraPendiente(int idProducto) {

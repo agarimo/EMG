@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.entidades.InfoProducto;
-import main.entidades.PrestaShop;
 
 /**
  *

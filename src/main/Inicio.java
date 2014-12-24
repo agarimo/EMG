@@ -6,7 +6,6 @@ import emg.csv.CsvActivaStock;
 import emg.csv.CsvActivaTarifa;
 import emg.csv.CsvActiva;
 import emg.csv.CsvBluevision;
-import emg.csv.CsvMegaSur;
 import emg.load.CsvInsercion;
 import emg.csv.RecursosWeb;
 import main.entidades.Descripcion;
@@ -25,8 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Sql;
 import emg.load.Trasvase;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  *
@@ -34,7 +31,7 @@ import java.net.URL;
  */
 public class Inicio {
 
-    private static File file = new File("temp.csv");
+    private static final File file = new File("temp.csv");
     public static Log log;
     private static FTPProveedor server;
     private static FTPProveedor publicacion;
@@ -49,7 +46,6 @@ public class Inicio {
     private boolean drop = false;
     public static boolean offline = false;
     private boolean activa = false;
-    private boolean megasur = false;
     private int tipoContenido = 0;
 
     public Inicio(String[] aux) {
@@ -71,10 +67,6 @@ public class Inicio {
 
         if (list.contains("-bluevision")) {
             bluevision = true;
-        }
-
-        if (list.contains("-megasur")) {
-            megasur = true;
         }
 
         if (list.contains("-trasvase")) {
@@ -124,11 +116,6 @@ public class Inicio {
                 log.escribeMsg("Ejecutando activaTarifa");
             }
             activaTarifa();
-        }
-
-        if (megasur) {
-            log.escribeMsg("Ejecutando megasur");
-            megasur();
         }
 
         if (activaStock) {
@@ -190,13 +177,6 @@ public class Inicio {
         server = SqlEmg.cargaFTPProveedor(new FTPProveedor("BLUEVISION"));
         getCsv(server);
         SqlEmg.actualizaActivos();
-    }
-
-    private void megasur() throws MalformedURLException {
-        server = SqlEmg.cargaFTPProveedor(new FTPProveedor("MEGASUR"));
-        util.Varios.descargaArchivo(new URL(server.getHost()), file);
-        Csv csv = new CsvMegaSur(file, Main.conEmg);
-        csv.run();
     }
 
     private void contenido(int tipo) {

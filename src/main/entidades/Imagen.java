@@ -52,7 +52,7 @@ public class Imagen {
     }
     
     public String getEnlace(){
-        return "http://electromegusta.es/img/p/image/"+this.nombre;
+        return "http://electromegusta.es/img/publicacion/"+this.nombre;
     }
     
     public String SQLCrear() {

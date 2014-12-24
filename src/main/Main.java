@@ -29,7 +29,7 @@ public class Main {
         driverAndInit();
 //        rutinaInsercion();
         
-//        args = new String[]{"-drop"};
+        args = new String[]{"-update"};
         if (args.length != 0) {
             inicio(args);
         } else {
