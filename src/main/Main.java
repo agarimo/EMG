@@ -29,7 +29,7 @@ public class Main {
         driverAndInit();
 //        rutinaInsercion();
         
-        args = new String[]{"-update"};
+        args = new String[]{"-bluevision"};
         if (args.length != 0) {
             inicio(args);
         } else {

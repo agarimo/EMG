@@ -79,7 +79,7 @@ public final class PrestaShop {
 //        aux = ((aux * pf.getPorcentaje()) / 100) + aux;
 //        aux = aux + pf.getPorte();
 
-        return aux;
+        return aux/1.21;
     }
 
     public String updatePrice() {
