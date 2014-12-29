@@ -5,6 +5,7 @@ import emg.csv.Csv;
 import emg.csv.CsvActivaStock;
 import emg.csv.CsvActivaTarifa;
 import emg.csv.CsvActiva;
+import emg.csv.CsvActivaJr;
 import emg.csv.CsvBluevision;
 import emg.load.CsvInsercion;
 import emg.csv.RecursosWeb;
@@ -176,6 +177,10 @@ public class Inicio {
     private void bluevision() throws IOException {
         server = SqlEmg.cargaFTPProveedor(new FTPProveedor("BLUEVISION"));
         getCsv(server);
+        server = SqlEmg.cargaFTPProveedor(new FTPProveedor("ACTIVA JR"));
+        getCsv(server);
+        trasvase();
+        update();
         SqlEmg.actualizaActivos();
     }
 
@@ -277,7 +282,10 @@ public class Inicio {
             case "BLUEVISION":
                 aux = new CsvBluevision(file, Main.conEmg);
                 aux.run();
-                update();
+                break;
+            case "ACTIVA JR":
+                aux = new CsvActivaJr(file,Main.conEmg);
+                aux.run();
                 break;
         }
     }

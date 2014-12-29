@@ -24,10 +24,12 @@ public class Main {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
      */
     public static void main(String[] args) throws IOException, InterruptedException {
         driverAndInit();
-//        rutinaInsercion();
+        rutinaInsercion();
         
         args = new String[]{"-bluevision"};
         if (args.length != 0) {
@@ -81,7 +83,7 @@ public class Main {
     private static void rutinaInsercion() {
         Producto pd;
         InfoProducto ip;
-        List ls = SqlEmg.listaProducto("Select * from electromegusta.producto");
+        List ls = SqlEmg.listaProducto("Select * from electromegusta.producto WHERE id_producto NOT IN (SELECT id_info FROM electromegusta.info_producto)");
         Iterator it = ls.iterator();
 
         try {

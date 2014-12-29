@@ -778,3 +778,44 @@
 2014-12-23 12:45:21	--------------------
 2014-12-28 01:05:31	Ejecutando bluevision
 2014-12-28 01:05:55	--------------------
+2014-12-29 17:20:04	Ejecutando bluevision
+2014-12-29 17:20:28	--------------------
+2014-12-29 17:22:11	Ejecutando bluevision
+2014-12-29 17:22:26	--------------------
+2014-12-29 17:31:04	Ejecutando bluevision
+2014-12-29 17:31:28	--------------------
+2014-12-29 17:32:49	Ejecutando activa
+2014-12-29 17:33:10	IOException	temp.csv (El sistema no puede encontrar el archivo especificado)
+2014-12-29 17:33:23	Ejecutando activaStock
+2014-12-29 17:33:26	--------------------
+2014-12-29 17:33:47	Ejecutando activa
+2014-12-29 17:34:04	SQLException	Duplicate entry '39' for key 'PRIMARY'
+2014-12-29 17:34:09	SQLException	Duplicate entry '3545' for key 'PRIMARY'
+2014-12-29 17:35:34	SQLException	Duplicate entry '771' for key 'PRIMARY'
+2014-12-29 17:36:46	SQLException	Duplicate entry '3119' for key 'PRIMARY'
+2014-12-29 17:36:47	SQLException	Duplicate entry '1394' for key 'PRIMARY'
+2014-12-29 17:36:47	SQLException	Duplicate entry '1394' for key 'PRIMARY'
+2014-12-29 17:37:19	SQLException	Duplicate entry '4518' for key 'PRIMARY'
+2014-12-29 17:37:30	SQLException	Duplicate entry '4547' for key 'PRIMARY'
+2014-12-29 17:37:30	SQLException	Duplicate entry '2798' for key 'PRIMARY'
+2014-12-29 17:38:10	SQLException	Duplicate entry '4637' for key 'PRIMARY'
+2014-12-29 17:38:10	SQLException	Duplicate entry '4637' for key 'PRIMARY'
+2014-12-29 17:38:28	--------------------
+2014-12-29 17:47:34	Ejecutando bluevision
+2014-12-29 17:47:47	--------------------
+2014-12-29 17:49:00	Ejecutando bluevision
+2014-12-29 17:49:14	--------------------
+2014-12-29 17:49:18	Ejecutando bluevision
+2014-12-29 17:49:38	--------------------
+2014-12-29 17:49:48	Ejecutando bluevision
+2014-12-29 17:50:05	--------------------
+2014-12-29 17:50:43	Ejecutando bluevision
+2014-12-29 17:50:56	--------------------
+2014-12-29 17:51:45	Ejecutando bluevision
+2014-12-29 17:51:59	--------------------
+2014-12-29 17:52:20	Ejecutando bluevision
+2014-12-29 17:52:35	--------------------
+2014-12-29 17:52:47	Ejecutando bluevision
+2014-12-29 17:53:03	--------------------
+2014-12-29 17:53:58	Ejecutando bluevision
+2014-12-29 17:54:14	--------------------

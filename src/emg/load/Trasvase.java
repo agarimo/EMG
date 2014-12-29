@@ -34,7 +34,6 @@ public class Trasvase {
             bd = new Sql(Main.conEmg);
             productos = cargaProductos();
             procesaProductos();
-            System.out.println("Trasvase de Productos finalizado");
             bd.close();
         } catch (SQLException ex) {
             Inicio.log.escribeError("SQLException", ex.getMessage());

@@ -29,7 +29,7 @@ public class CsvBluevision extends Csv {
     }
 
     private void procesar() {
-        System.out.println("Iniciando actualizacion de stock y tarifa");
+        System.out.println("Iniciando actualizacion de stock y tarifa BLUEVISION");
         int contador = 1;
         String str;
         
